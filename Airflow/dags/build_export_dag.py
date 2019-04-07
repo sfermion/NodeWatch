@@ -393,7 +393,8 @@ def build_export_dag(
     export_traces_operator = add_export_task(
         export_traces_toggle, 
         "export_traces", 
-        export_traces_command
+        export_traces_command,
+        dependencies=[node_watch_operator]
     )
 
     export_contracts_operator = add_export_task(
