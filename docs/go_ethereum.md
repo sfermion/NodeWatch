@@ -17,32 +17,41 @@ save the generated address
 git clone https://github.com/ethereum/go-ethereum
 
 ## Install Go
-1. sudo apt-get update
-2. sudo apt-get -y upgrade
-3. cd /tmp
-4. wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
-5. sudo tar -xvf go1.11.linux-amd64.tar.gz
-6. sudo mv go /usr/local
-7. vim ~/.bashrc
+
+```bash
+sudo apt-get update
+sudo apt-get -y upgrade
+cd /tmp
+wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+sudo tar -xvf go1.11.linux-amd64.tar.gz
+sudo mv go /usr/local
+vim ~/.bashrc
 	* export GOROOT=/usr/local/go
 	* export GOPATH=$HOME/go
 	* export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 	* source ~/.bashrc
-8. sudo apt-get install -y build-essential
-9. cd go-ethereum
-10. make geth
+sudo apt-get install -y build-essential
+cd go-ethereum
+make geth
+```
 
 ## Make a run_node bash file:
 
-1. vim run_etl_node.sh
-2. /home/ubuntu/go-ethereum/build/bin/geth
-3. chmod +x run_etl_node.sh
+```bash
+vim run_etl_node.sh
+/home/ubuntu/go-ethereum/build/bin/geth
+chmod +x run_etl_node.sh
+```
 
 ## Start syncing process 
-* nohup geth --cache=4098 --rpc --rpcaddr 0.0.0.0 &
 
+```bash
+nohup geth --cache=4098 --rpc --rpcaddr 0.0.0.0 &
+```
 
 ## Check syncronization
-* geth attach
-* eth.syncing
 
+```bash
+eth attach
+eth.syncing
+```
