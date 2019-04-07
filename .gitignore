@@ -1,0 +1,9 @@
+Base_projects/
+bin/
+lib/
+include/
+docs/video/
+nohup.out
+.vscode
+.python
+.DS_Store
