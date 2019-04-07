@@ -32,12 +32,12 @@ My second solution and final proposal to this issue is implementing cross-commun
 
 In order to run the project, one requires to install Python 3.5+, go-ethereum and ethereum-etl library before starting the to run the airflow workers. Please follow the instruction provided in the link below to setup the required tools and technologies:
 
-* Postgres database as the meta-databade 
-* Go-ethereum to start the parity sync
+* [Postgres](https://github.com/sfermion/NodeWatch/blob/master/docs/postgres.md) database as the meta-databade 
+* [Go-ethereum](https://github.com/sfermion/NodeWatch/blob/master/docs/go_ethereum.md) to start the parity sync
 * Celery as the executor
-* RabbitMQ as the broker
+* [RabbitMQ](https://github.com/sfermion/NodeWatch/blob/master/docs/rabbitmq.md) as the broker
 * Airflow cluster ()
-* Setup redshift in AWS
+* Setup [redshift](https://github.com/sfermion/NodeWatch/blob/master/docs/redshift.md)
 
 ## Data source
 
