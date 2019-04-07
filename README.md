@@ -10,7 +10,7 @@ Being decentralized and public make ethereum blockchain an appealing source for 
 
 ## Problem Statement
 
-Automation and monitoring of the workflow of data migration from ethereum blockchain to a cloud-based storage is possible using ethereum-etl-airflow project which is based on ethereum-etl codebased. [Ethereum-etl-airflow](https://github.com/blockchain-etl/ethereum-etl-airflow/tree/master/dags/resources/stages/raw/schemas) implements Apache Airflow technology to automate the process of 1 TB blockchain data ingestion.
+Automation and monitoring of the workflow of data migration from ethereum blockchain to a cloud-based storage is possible using ethereum-etl-airflow project which is based on ethereum-etl codebased. [Ethereum-etl-airflow](https://github.com/blockchain-etl/ethereum-etl-airflow) implements Apache Airflow technology to automate the process of 1 TB blockchain data ingestion.
 
 ## Proposed Solution
 This repository, NodeWatch focuses on an open issue in ethereum-etl-airflow project where a failure in the main node if the blockchain can result in failure in the export tasks. Nodewatch, adds an additional task to the export DAGs (Directed Acyclic Graph) that is responsible for watching the main node. If the main node shots down, NodeWatch will make another connection to an alternative blockchain node so that the ETL process will be continued without a failure.
@@ -32,11 +32,11 @@ My second solution and final proposal to this issue is implementing cross-commun
 
 In order to run the project, one requires to install Python 3.5+, [go-ethereum](https://github.com/ethereum/go-ethereum) and ethereum-etl library before starting the to run the airflow workers. Please follow the instruction provided in the link below to setup the required tools and technologies:
 
+* [Airflow cluster](https://github.com/sfermion/NodeWatch/blob/master/docs/airflow.md)
 * [Postgres](https://github.com/sfermion/NodeWatch/blob/master/docs/postgres.md) database as the meta-databade 
 * [Go-ethereum](https://github.com/sfermion/NodeWatch/blob/master/docs/go_ethereum.md) to start the parity sync
 * Celery as the executor
 * [RabbitMQ](https://github.com/sfermion/NodeWatch/blob/master/docs/rabbitmq.md) as the broker
-* Airflow cluster ()
 * Setup [redshift](https://github.com/sfermion/NodeWatch/blob/master/docs/redshift.md)
 
 ## Data source
