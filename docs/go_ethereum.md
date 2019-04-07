@@ -42,7 +42,7 @@ git clone https://github.com/ethereum/go-ethereum
 * nohup geth --cache=4098 --rpc --rpcaddr 0.0.0.0 &
 
 
-##Check syncronization
+## Check syncronization
 * geth attach
 * eth.syncing
 
