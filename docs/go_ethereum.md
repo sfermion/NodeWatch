@@ -1,13 +1,17 @@
 # Setup an Ethereum node
 
 ## Install Geth:
-1. sudo apt-get install software-properties-common
-2. sudo add-apt-repository -y ppa:ethereum/ethereum
-3. sudo apt-get update
-4. sudo apt-get install ethereum
 
-5. eth account new
-6. pass: {password}
+```bash
+sudo apt-get install software-properties-common
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install ethereum
+
+eth account new
+pass: {password}
+
+```
 
 save the generated address
 -->Address: {address}
