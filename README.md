@@ -17,11 +17,16 @@ This repository, NodeWatch focuses on an open issue in ethereum-etl-airflow proj
 
 ## Engineering challenges
 
-The engineering challenge lies in the heath of the task DAGs. There are 2 main DAGs, namely, export and load DAGs. Ethereum node connection task is related to export DAG which is consist of 5 tasks (refer to the image below). The choice of DAGs architecture is challenging since a not proper choice can lead to unpredicted and imperformant behavior of the ETL process. 
+The engineering challenge lies in the heath of the task DAGs. There are 2 main DAGs, namely, export and load DAGs. Ethereum node connection task is related to export DAG which is consist of 3 tasks (refer to the image below). The choice of DAGs architecture is challenging since a not proper choice can lead to unpredicted and imperformant behavior of the ETL process. 
+
+![https://github.com/sfermion/NodeWatch/blob/master/docs/images/no_nodewatch_DAG.png](no_nodewatch_DAG.png)
 
 In order to make the export DAG fault tolerant against ethereum node failure, I first implemented subdags to check the connection in each individual task. However, it is proven that subdags are not compatible with kubernetes platform and they can cause leadlocks. Since, the ethereum-etl-airflow project will be using kubernetes as the main deployment platform, I decided to solve the problem in a different way. For more discussion on this issue please refer to this article. https://www.astronomer.io/guides/subdags/
 
 My second solution and final proposal to this issue is implementing cross-communication (XCOM) feature in airflow to share data within tasks. I developed the NodeWatch task which is in charge of testing the main ethereum node connection at the beginning of the export DAG. If the connection is healthy, it sends a signal to the dependent tasks to use the main node connection otherwise it tells the tasks to use the alternative ethereum node (please refer to the image below).
+
+![https://github.com/sfermion/NodeWatch/blob/master/docs/images/nodeWatch_DAG.png](nodeWatch_DAG.png)
+
 
 ## How to run the project?
 
@@ -38,5 +43,6 @@ In order to run the project, one requires to install Python 3.5+, go-ethereum an
 
 The ethereum blockchain data was collected using go-ethereum library which makes a connection either to a parity-synced local machine or an external source, i.e., https://mainnet.infura.io. 
 
-## Pipeline, Architecture and Teck stack
+## Pipeline, Architecture and Teckstack
 
+![https://github.com/sfermion/NodeWatch/blob/master/docs/images/Pipeline_techstack.png](nodeWatch_DAG.png)
