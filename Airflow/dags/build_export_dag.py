@@ -319,13 +319,10 @@ def build_export_dag(
     def export_traces_command(execution_date, **kwargs):
         task_instance = kwargs['ti']
         live_uri = task_instance.xcom_pull(key='live_uri',task_ids='node_watch')
-        if provider_uri_archival == provider_uri:
-            provider_uri_archival = live_uri
         with TemporaryDirectory() as tempdir:
             start_block, end_block = get_block_range(tempdir, execution_date,provider_uri=live_uri)
-
             logging.info('Calling export_traces({}, {}, {}, ...,{}, {}, {}, {})'.format(
-                start_block, end_block, export_batch_size, export_max_workers, provider_uri_archival,
+                start_block, end_block, export_batch_size, export_max_workers, live_uri,
                 export_genesis_traces_option, export_daofork_traces_option
             ))
             export_traces.callback(
@@ -334,7 +331,7 @@ def build_export_dag(
                 batch_size=export_batch_size,
                 output=os.path.join(tempdir, "traces.csv"),
                 max_workers=export_max_workers,
-                provider_uri=provider_uri_archival,
+                provider_uri=live_uri,
                 genesis_traces=export_genesis_traces_option,
                 daofork_traces=export_daofork_traces_option,
             )
