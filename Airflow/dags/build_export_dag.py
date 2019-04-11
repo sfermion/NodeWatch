@@ -29,7 +29,7 @@ from ethereumetl.service.eth_service import BlockTimestampGraph
 def build_export_dag(
     dag_id,
     provider_uri,
-    backup_provider_uri,
+    backup_provider_uri_list,
     provider_uri_archival,
     output_bucket,
     cloud_provider,
@@ -124,19 +124,36 @@ def build_export_dag(
         """
         This functions checks if the provider_uri is connected or not.
         input: kwargs
-        output: xcom_push either provider_uri or backup_provider_uri to the dependencies. 
+        returns: xcom_push either provider_uri or one of the uris from backup_provider_uri_list 
+        to the dependencies. 
         Xcoms table in database needs to be cleaned up time by time
         """
+        def connection_check_recursice(uri,backup_uri_list):
+            """
+            This function recursively check the connection of the backup uris.
+            input: backup_uri_list is backup_provider_uri_list variable. needs to be comma
+                seperated uris.
+            returns: a live uri
+            """
+            if not backup_uri_list: 
+                raise ConnectionError("No ethereum node is responding") 
+            backup_provider_uri = backup_uri_list.pop()
+            provider = get_provider_from_uri(uri)
+            web3 = Web3(provider)
+            block_timesstamp_graph = BlockTimestampGraph(web3)
+            try:
+                block_timesstamp_graph.get_first_point()
+                return uri
+            except:
+                return connection_check_recursice(backup_provider_uri,backup_uri_list)
+                
         task_instance = kwargs['ti']
-        uri = provider_uri
-        provider = get_provider_from_uri(provider_uri)
-        web3 = Web3(provider)
-        block_timesstamp_graph = BlockTimestampGraph(web3)
-        try:
-            block_timesstamp_graph.get_first_point()
-        except:
-            uri = backup_provider_uri
+        backup_uri_list = [uri.strip() for uri in backup_provider_uri_list.split(',')]
+        uri = connection_check_recursice(provider_uri,backup_uri_list)
+        
         return task_instance.xcom_push(key='live_uri',value=uri)
+
+
 
     def get_block_range(tempdir, date,provider_uri=provider_uri):
         logging.info('Calling get_block_range_for_date({}, {}, ...)'.format(provider_uri, date))
