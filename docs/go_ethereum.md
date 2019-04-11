@@ -59,3 +59,13 @@ nohup geth --cache=4098 --rpc --rpcaddr 0.0.0.0 &
 eth attach
 eth.syncing
 ```
+
+## Install Parity for contract trace export
+
+```bash
+bash <(curl https://get.parity.io -L)
+
+vim ~/.local/share/io.parity.ethereum/chains/ethereum/user_defaults
+	* change "tracing":true
+nohup parity --tracing on --jsonrpc-interface 0.0.0.0 &
+```
