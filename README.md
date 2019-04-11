@@ -11,6 +11,7 @@ Being decentralized and public make ethereum blockchain an appealing source for 
 ## Problem Statement
 
 Automation and monitoring of the workflow of data migration from ethereum blockchain to a cloud-based storage is possible using ethereum-etl-airflow project which is based on ethereum-etl codebased. [Ethereum-etl-airflow](https://github.com/blockchain-etl/ethereum-etl-airflow) implements Apache Airflow technology to automate the process of 1 TB blockchain data ingestion.
+Ethereum-etl-airflow has no mechanism to check the ethereum node connections and reconnect it to an alternative node if the main node fails.
 
 ## Proposed Solution
 This repository, NodeWatch focuses on an open issue in ethereum-etl-airflow project where a failure in the main node if the blockchain can result in failure in the export tasks. Nodewatch, adds an additional task to the export DAGs (Directed Acyclic Graph) that is responsible for watching the main node. If the main node shots down, NodeWatch will make another connection to an alternative blockchain node so that the ETL process will be continued without a failure.
@@ -21,7 +22,7 @@ The engineering challenge lies in the heath of the task DAGs. There are 2 main D
 
 ![no_nodewatch_DAG.png](https://github.com/sfermion/NodeWatch/blob/master/docs/images/no_nodewatch_DAG.png)
 
-In order to make the export DAG fault tolerant against ethereum node failure, I first implemented subdags to check the connection in each individual task. However, it is proven that subdags are not compatible with kubernetes platform and they can cause leadlocks. Since, the ethereum-etl-airflow project will be using kubernetes as the main deployment platform, I decided to solve the problem in a different way. For more discussion on this issue please refer to this article. https://www.astronomer.io/guides/subdags/
+In order to make the export DAG fault tolerant against ethereum node failure, I first implemented subdags to check the connection in each individual task. However, it is proven that subdags are not compatible with kubernetes platform and they can cause leadlocks. Since, the ethereum-etl-airflow project will be using kubernetes as the main deployment platform, I decided to solve the problem in a different way. For more discussion on this issue please refer to this [article](https://medium.com/bluecore-engineering/airflow-why-is-nothing-working-f705eb6b7b04/).
 
 My second solution and final proposal to this issue is implementing cross-communication (XCOM) feature in airflow to share data within tasks. I developed the NodeWatch task which is in charge of testing the main ethereum node connection at the beginning of the export DAG. If the connection is healthy, it sends a signal to the dependent tasks to use the main node connection otherwise it tells the tasks to use the alternative ethereum node (please refer to the image below).
 
