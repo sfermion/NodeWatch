@@ -3,6 +3,7 @@ bin/
 lib/	
 include/
 docs/video/
+docs/images/slide_images/
 nohup.out
 .vscode
 .python
