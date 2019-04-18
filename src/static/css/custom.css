@@ -1,0 +1,29 @@
+body {
+	padding-top: 50px;
+	background-color: #f8f8f8;
+    font-family: HelveticaNeueBold,Helvetica,Arial,sans-serif;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+
+#boxshadow3 {
+    position: relative;
+    box-shadow: 1px 2px 4px gray;
+    padding: 15px;
+    background: white;
+    padding: 0px;
+}
+
+
+.verticalLine {
+    border-left: 1px ridge black;
+    height: 105px;
+    border-color: black;
+    margin-bottom: -40px !important;
+    /*line-height: 40px;*/
+}
+
+

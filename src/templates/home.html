@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+<script>
+{% block jquery %}
+var endpoint = "{% url 'home' %}";
+
+function ajaxGetData(){
+	$.ajax({
+		method: "GET",
+		url: endpoint,
+		success: function(data){
+
+			dag_num_succ=data.dag_num_succ	
+			dag_num_rty	= data.dag_num_rty
+			dag_num_run	= data.dag_num_run	
+			nw_num_succ	= data.nw_num_succ	
+			nw_num_rty	= data.nw_num_rty 
+			nw_num_run	= data.nw_num_run 
+			$("#dag_num_succ").html(dag_num_succ)
+			$("#dag_num_rty").html(dag_num_rty)
+			$("#dag_num_run").html(dag_num_run)
+			$("#nw_num_succ").html(nw_num_succ)
+			$("#nw_num_rty").html(nw_num_rty)
+			$("#nw_num_run").html(nw_num_run)
+			console.log('data',data)
+		},
+		error: function(error_data){
+			console.log("error");
+			console.log(error_data);
+		}
+	});
+};
+
+// ajaxGetData();
+// setInterval(function(){
+// 	ajaxGetData();
+// 	}, 5000
+// );
+
+{% endblock %}
+
+</script>
+
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+		<div class="col-sm-12 placeholder thumbnail" id="boxshadow3">
+			<div class="table-responsive" >
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<h2 align="center">Demo</h2>
+						<div class="embed-responsive embed-responsive-4by3">
+							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/LZbLXYbwOTo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+							</iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12 placeholder thumbnail" id="boxshadow3">
+			<div class="table-responsive" style="height: 300px; overflow: auto;" >
+				<div class="row">
+					<div class="col-sm-2">
+						<h4 align="left">
+						<i class="fa fa-circle" aria-hidden="true" style="color: red;margin-left: 20px;margin-right: 8px"></i> Realtime
+						</h4>
+					</div>
+					<div class="col-sm-8">
+						<h2 align="center">Running Tasks Status</h2>
+					</div>
+					<div class="col-sm-2">
+						<h4 align="right" style="margin-right: 20px;">
+							<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>
+							<span class="sr-only">Loading...</span>
+						</h4>
+					</div>
+				</div>
+				<hr>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>DAG</th>
+							<th>Runnig tasks</th>
+							<th>Retry tasks</th>
+							<th>Successful tasks</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>DAG with NodeWatch </th>
+							<td id="nw_num_run">{{ nw_num_run }}</td>
+							<td id="nw_num_rty">{{ nw_num_rty }}</td>
+							<td id="nw_num_succ">{{ nw_num_succ }}</td>
+						</tr>
+						<tr>
+							<th>DAG without NodeWatch</th>
+							<td id="dag_num_run">{{ dag_num_run }}</td>
+							<td id="dag_num_rty">{{ dag_num_rty }}</td>
+							<td id="dag_num_succ">{{ dag_num_succ }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+</div>
+
+{% endblock %}
+
+
+

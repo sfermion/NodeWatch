@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+	<title>{% block head_title %}NodeWacth {% endblock head_title %}
+	</title>
+	{% include 'head_css.html' %}
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			{% include "messages_display.html" %}
+			{% include 'navbar.html' %}
+			{% include "sidebar.html" %}
+			{% block content %}{% endblock content %}
+			{% include "javascript.html" %}
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function(){
+			{% block jquery %}{% endblock %}
+		})
+	</script>
+
+</body>
+</html>
