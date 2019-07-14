@@ -1,6 +1,7 @@
 ## Install RabbitMQ
 
 ```bash
+sudo apt-get update
 sudo apt-get install rabbitmq-server
 sudo vim /etc/rabbitmq/rabbitmq-env.conf
 	* NODE_IP_ADDRESS=0.0.0.0
