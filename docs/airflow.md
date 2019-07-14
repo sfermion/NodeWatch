@@ -44,7 +44,7 @@ mkdir /home/ubuntu/airflow/dags
 * webserver_port --> 8083
 * load_example --> False
 * airflow resetdb
-* executor = CeleryExecutorr
+* executor = CeleryExecutor
 * sql_alchemy_conn = postgresql+psycopg2://<postgres_instance_private_IP>:5432/airflow
 * broker_url = pyamqp://admin:rabbitmq@<rabbitmq_instance_private_IP>/
 * result_backend = db+postgresql://ubuntu@<postgres_instance_private_IP>:5432/airflow
