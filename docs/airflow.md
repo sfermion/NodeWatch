@@ -1,6 +1,7 @@
 ## Install the followings:
 
 ```bash
+sudo apt update
 sudo apt-get install libmysqlclient-dev
 sudo apt-get install libssl-dev
 sudo apt-get install libkrb5-dev
