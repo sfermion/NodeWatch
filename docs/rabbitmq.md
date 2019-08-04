@@ -20,4 +20,5 @@ sudo rabbitmqctl add_user admin rabbitmq
 sudo rabbitmqctl add_vhost dev
 sudo rabbitmqctl set_user_tags admin administrator
 sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+sudo rabbitmqctl set_vm_memory_high_watermark 0.8
 ```
