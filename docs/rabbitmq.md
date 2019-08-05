@@ -21,5 +21,6 @@ sudo rabbitmqctl add_vhost dev
 sudo rabbitmqctl set_user_tags admin administrator
 sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 sudo rabbitmqctl set_vm_memory_high_watermark 0.8
+sudp abbitmqctl set_policy Lazy "^lazy-queue$" '{"queue-mode":"lazy"}' --apply-to queues
 ulimit -n 65535
 ```
